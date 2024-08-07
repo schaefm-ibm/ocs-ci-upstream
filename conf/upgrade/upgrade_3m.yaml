@@ -1,6 +1,0 @@
----
-REPORTING:
-  polarion:
-    upgrade_id: 'OCS-1486'
-UPGRADE:
-  upgrade: true

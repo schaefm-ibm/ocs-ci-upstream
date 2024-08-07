@@ -1,7 +1,0 @@
-apiVersion: couchbase.com/v2
-kind: CouchbaseBucket
-metadata:
-  name: default
-  namespace: couchbase-operator-namespace
-spec:
-  memoryQuota: 128Mi

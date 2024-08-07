@@ -1,5 +1,0 @@
-REPORTING:
-  polarion:
-    deployment_id: 'TEST_DEPLOYMENT_ID'
-    upgrade_auto_id: 'TEST_UPGRADE_AUTO_ID'
-    upgrade_manual_id: 'TEST_UPGRADE_MANUAL_ID'

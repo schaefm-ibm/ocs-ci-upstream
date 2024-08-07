@@ -1,7 +1,0 @@
-DEPLOYMENT:
-  install_lvmo: True
-  lvmo_disks: 3
-  lvmo_disks_size: 75
-ENV_DATA:
-  skip_ocs_deployment: True
-  lvmo: true

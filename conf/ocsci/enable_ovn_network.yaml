@@ -1,4 +1,0 @@
----
-# Use this config for enabling OVN network
-ENV_DATA:
-  network_type: 'OVNKubernetes'

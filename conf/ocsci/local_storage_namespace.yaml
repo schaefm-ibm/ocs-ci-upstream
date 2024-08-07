@@ -1,2 +1,0 @@
-ENV_DATA:
-  local_storage_namespace: 'local-storage'

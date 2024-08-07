@@ -1,3 +1,0 @@
----
-ENV_DATA:
-  enable_hw_virtualization: true

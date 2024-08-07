@@ -1,7 +1,0 @@
----
-DEPLOYMENT:
-  local_storage: true
-  type: 'VMDirectPath'
-
-ENV_DATA:
-  platform: 'vsphere'

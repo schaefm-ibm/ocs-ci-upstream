@@ -1,9 +1,0 @@
-apiVersion: operators.coreos.com/v1alpha1
-kind: CatalogSource
-metadata:
- name: managed-fusion-catsrc
- namespace: managed-fusion
-spec:
- sourceType: grpc
- image: {{ image }}
- displayName: Managed Fusion Agent

@@ -1,4 +1,0 @@
----
-# Use this config for enabling huge pages right after OCP deployment
-ENV_DATA:
-  huge_pages: true

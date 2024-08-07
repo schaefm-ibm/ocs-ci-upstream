@@ -1,4 +1,0 @@
-# Use this file to skip OCP installer to destroy the cluster
----
-DEPLOYMENT:
-  skip_ocp_installer_destroy: true

@@ -1,5 +1,0 @@
----
-# This config file can be used for live deployment
-DEPLOYMENT:
-  live_deployment: True
-  live_content_source: "redhat-operators"

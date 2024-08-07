@@ -1,3 +1,0 @@
-DEPLOYMENT:
-  stage_rh_osbs: true
-  stage_index_image_tag: "v4.6"

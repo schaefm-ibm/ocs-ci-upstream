@@ -1,4 +1,0 @@
----
-# This config file can be used for disable the OCS addon
-DEPLOYMENT:
-  ibmcloud_disable_addon: True

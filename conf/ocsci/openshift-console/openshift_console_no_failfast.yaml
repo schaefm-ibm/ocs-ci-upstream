@@ -1,4 +1,0 @@
----
-# To avoid skipping remaining portion of tests upon encountering the first failure
-RUN:
-  openshift_console_no_failfast: true

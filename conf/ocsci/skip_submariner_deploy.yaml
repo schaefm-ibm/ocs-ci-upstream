@@ -1,3 +1,0 @@
----
-ENV_DATA:
-  skip_submariner_deployment: true

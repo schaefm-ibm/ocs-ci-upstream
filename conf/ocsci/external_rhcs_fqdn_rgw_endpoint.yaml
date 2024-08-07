@@ -1,3 +1,0 @@
----
-EXTERNAL_MODE:
-  use_fqdn_rgw_endpoint: True

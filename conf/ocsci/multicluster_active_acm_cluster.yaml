@@ -1,3 +1,0 @@
-MULTICLUSTER:
-  acm_cluster: True
-  active_acm_cluster: True

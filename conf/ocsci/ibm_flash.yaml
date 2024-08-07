@@ -1,4 +1,0 @@
-# Use this file when you are running on cluster with IBM Flash storageSystem
----
-ENV_DATA:
-  ibm_flash: true
