@@ -105,6 +105,8 @@ from ocs_ci.ocs.utils import (
     get_active_acm_index,
     enable_mco_console_plugin,
     label_pod_security_admission,
+    is_acm_cluster,
+    is_recovery_cluster,
 )
 from ocs_ci.utility.deployment import (
     create_external_secret,
@@ -664,6 +666,14 @@ class Deployment(object):
             and ocp_version >= version.VERSION_4_9
         ):
             self.deploy_acm_hub()
+
+        perform_lso_standalone_deployment = config.DEPLOYMENT.get(
+            "lso_standalone_deployment", False
+        ) and not ocp.OCP(kind=constants.STORAGECLASS).is_exist(
+            resource_name=self.DEFAULT_STORAGECLASS_LSO
+        )
+        if perform_lso_standalone_deployment:
+            setup_local_storage(storageclass=self.DEFAULT_STORAGECLASS_LSO)
         self.do_deploy_lvmo()
         self.do_deploy_submariner()
         self.do_gitops_deploy()
@@ -2889,7 +2899,7 @@ class MultiClusterDROperatorsDeploy(object):
         # on all participating clusters except HUB
         # We will switch config ctx to Participating clusters
         for cluster in config.clusters:
-            if cluster.MULTICLUSTER["multicluster_index"] in get_all_acm_indexes():
+            if is_acm_cluster(cluster) or is_recovery_cluster(cluster):
                 continue
             else:
                 config.switch_ctx(cluster.MULTICLUSTER["multicluster_index"])
@@ -3186,7 +3196,8 @@ class MultiClusterDROperatorsDeploy(object):
         3. backupstoragelocation resource in "Available" phase
         """
         # Restic pods have been renamed to node-agent after oadp 1.2
-        oadp_version = get_oadp_version()
+        logger.info("Getting OADP version")
+        oadp_version = get_oadp_version(namespace=constants.ACM_HUB_BACKUP_NAMESPACE)
 
         if version.compare_versions(f"{oadp_version} >= 1.2"):
             restic_or_node_agent_pod_prefix = "node-agent"

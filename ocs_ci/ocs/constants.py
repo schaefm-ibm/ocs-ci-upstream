@@ -17,6 +17,8 @@ LOG_FORMAT = "%(asctime)s - %(threadName)s - %(name)s - %(levelname)s - %(messag
 # Directories
 TOP_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 CONF_DIR = os.path.join(TOP_DIR, "conf")
+DEPLOYMENT_CONF_DIR = os.path.join(CONF_DIR, "deployment")
+FUSION_CONF_DIR = os.path.join(DEPLOYMENT_CONF_DIR, "fusion_hci_pc")
 FRAMEWORK_CONF_DIR = os.path.join(TOP_DIR, "ocs_ci", "framework", "conf")
 OCP_VERSION_CONF_DIR = os.path.join(FRAMEWORK_CONF_DIR, "ocp_version")
 OCS_VERSION_CONF_DIR = os.path.join(FRAMEWORK_CONF_DIR, "ocs_version")
@@ -1112,6 +1114,9 @@ VELERO_POD_COUNT = 1
 MDR_DPA = "dpa-1"
 MULTICLUSTER_ENGINE = "multiclusterengine"
 BACKUP_SCHEDULE_YAML = os.path.join(TEMPLATE_MULTICLUSTER_DIR, "backupschedule.yaml")
+KLUSTERLET_CONFIG_YAML = os.path.join(
+    TEMPLATE_MULTICLUSTER_DIR, "klusterlet_config.yaml"
+)
 MDR_BACKUP_SCHEDULE_RESOURCE = "schedule-acm"
 ACM_POLICY_COMPLIANT = "Compliant"
 ACM_POLICY_NONCOMPLIANT = "NonCompliant"
@@ -2017,6 +2022,8 @@ DISCON_CL_REQUIRED_PACKAGES = [
     "odf-operator",
 ]
 # for OCP >= 4.11
+# the list of available packages can be obtained via following command:
+# oc mirror list operators --catalog REGISTRY_IMAGE
 DISCON_CL_REQUIRED_PACKAGES_PER_ODF_VERSION = {
     "4.11": [
         "cluster-logging",
@@ -2054,9 +2061,23 @@ DISCON_CL_REQUIRED_PACKAGES_PER_ODF_VERSION[
     "4.15"
 ] = DISCON_CL_REQUIRED_PACKAGES_PER_ODF_VERSION["4.12"]
 
+DISCON_CL_REQUIRED_PACKAGES_PER_ODF_VERSION["4.16"] = [
+    "cluster-logging",
+    "elasticsearch-operator",
+    # we might need to uncomment next line, if we would like to use it in
+    # disconnected deployment:
+    # "lvms-operator",
+    "mcg-operator",
+    "ocs-operator",
+    "odf-csi-addons-operator",
+    "odf-multicluster-orchestrator",
+    "odf-operator",
+    # "odf-prometheus-operator",
+]
+
 DISCON_CL_REQUIRED_PACKAGES_PER_ODF_VERSION[
-    "4.16"
-] = DISCON_CL_REQUIRED_PACKAGES_PER_ODF_VERSION["4.12"]
+    "4.17"
+] = DISCON_CL_REQUIRED_PACKAGES_PER_ODF_VERSION["4.16"]
 
 # PSI-openstack constants
 NOVA_CLNT_VERSION = "2.0"
@@ -2623,6 +2644,8 @@ OADP_SUBSCRIPTION_YAML = os.path.join(
 OADP_NS_YAML = os.path.join(TEMPLATE_DIR, "oadp-deployment", "namespace_opg_oadp.yaml")
 ACM_HUB_BACKUP_NAMESPACE = "open-cluster-management-backup"
 ACM_HUB_RESTORE = "Restore"
+ACM_BACKUP_SCHEDULE = "BackupSchedule"
+KLUSTERLET_CONFIG = "KlusterletConfig"
 
 # Vault encryption KMS types for PV encryption
 VAULT_TOKEN = "vaulttokens"

@@ -1190,6 +1190,9 @@ def _collect_ocs_logs(
             ocs_must_gather_image_and_tag = mirror_image(
                 ocs_must_gather_image_and_tag, cluster_config
             )
+        if cluster_config.ENV_DATA.get("cluster_type") == constants.HCI_CLIENT:
+            ocs_flags = ocs_flags + " -pc" if ocs_flags else " /usr/bin/gather -pc"
+
         mg_output = run_must_gather(
             ocs_log_dir_path,
             ocs_must_gather_image_and_tag,
@@ -1541,6 +1544,34 @@ def get_all_acm_indexes():
         if cluster.MULTICLUSTER["acm_cluster"]:
             acm_indexes.append(cluster.MULTICLUSTER["multicluster_index"])
     return acm_indexes
+
+
+def is_acm_cluster(cluster):
+    """
+    Checks given cluster is acm cluster
+
+    Args:
+        cluster (Object): cluster Config() object
+
+    Returns:
+        bool: return True if acm cluster otherwise False
+
+    """
+    return cluster.MULTICLUSTER["multicluster_index"] in get_all_acm_indexes()
+
+
+def is_recovery_cluster(cluster):
+    """
+    Checks given cluster is recovery cluster
+
+    Args:
+        cluster (Object): cluster Config() object
+
+    Returns:
+        bool: return True if recovery cluster otherwise False
+
+    """
+    return cluster.MULTICLUSTER.get("recovery_cluster")
 
 
 def enable_mco_console_plugin():
