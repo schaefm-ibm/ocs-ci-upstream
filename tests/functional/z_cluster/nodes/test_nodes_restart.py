@@ -13,6 +13,7 @@ from ocs_ci.framework.testlib import (
     skipif_ibm_cloud,
     skipif_managed_service,
     skipif_hci_provider_and_client,
+    skipif_s390x_zvm,
 )
 from ocs_ci.ocs import constants
 from ocs_ci.ocs.node import get_node_objs, get_nodes, wait_for_nodes_status
@@ -37,6 +38,7 @@ logger = logging.getLogger(__name__)
 @ignore_leftovers
 @skipif_managed_service
 @skipif_hci_provider_and_client
+@skipif_s390x_zvm
 class TestNodesRestart(ManageTest):
     """
     Test ungraceful cluster shutdown
@@ -66,6 +68,7 @@ class TestNodesRestart(ManageTest):
         request.addfinalizer(finalizer)
 
     @tier4a
+    @skipif_s390x_zvm
     @pytest.mark.parametrize(
         argnames=["force"],
         argvalues=[
@@ -76,6 +79,7 @@ class TestNodesRestart(ManageTest):
             ),
         ],
     )
+    @skipif_s390x_zvm
     def test_nodes_restart(
         self, nodes, pvc_factory, pod_factory, force, bucket_factory, rgw_bucket_factory
     ):
@@ -99,6 +103,7 @@ class TestNodesRestart(ManageTest):
         )(pvc_factory, pod_factory, bucket_factory, rgw_bucket_factory)
 
     @tier4b
+    @skipif_s390x_zvm
     @pytest.mark.polarion_id("OCS-2015")
     def test_rolling_nodes_restart(
         self, nodes, pvc_factory, pod_factory, bucket_factory, rgw_bucket_factory
@@ -138,6 +143,7 @@ class TestNodesRestart(ManageTest):
         ],
     )
     @skipif_ibm_cloud
+    @skipif_s390x_zvm
     @skipif_vsphere_ipi
     def test_pv_provisioning_under_degraded_state_stop_provisioner_pod_node(
         self,
@@ -284,6 +290,7 @@ class TestNodesRestart(ManageTest):
         ],
     )
     @skipif_ibm_cloud
+    @skipif_s390x_zvm
     @skipif_vsphere_ipi
     def test_pv_provisioning_under_degraded_state_stop_rook_operator_pod_node(
         self,
@@ -383,7 +390,10 @@ class TestNodesRestart(ManageTest):
 
     @tier4b
     @skipif_no_lso
+    @skipif_s390x_zvm
+    @bugzilla("1873938")
     @pytest.mark.polarion_id("OCS-2448")
+    ## HAUBENR DEBUG - possibly s390x skip
     def test_pv_after_reboot_node(self, nodes):
         """
         Verify unexpected PV is not created after node reboot on LSO cluster

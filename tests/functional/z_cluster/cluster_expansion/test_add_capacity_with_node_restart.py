@@ -9,6 +9,7 @@ from ocs_ci.framework.testlib import (
     skipif_managed_service,
     skipif_hci_provider_and_client,
     skipif_external_mode,
+    skipif_s390x_zvm
 )
 from ocs_ci.framework import config
 from ocs_ci.ocs import constants
@@ -41,6 +42,7 @@ logger = logging.getLogger(__name__)
 @skipif_managed_service
 @skipif_hci_provider_and_client
 @skipif_external_mode
+@skipif_s390x_zvm
 class TestAddCapacityNodeRestart(ManageTest):
     """
     Test add capacity when one of the worker nodes got restart

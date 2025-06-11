@@ -8,6 +8,7 @@ from ocs_ci.framework.pytest_customization.marks import (
     tier2,
     skipif_external_mode,
     magenta_squad,
+    skipif_s390x,
 )
 from ocs_ci.framework.testlib import E2ETest
 from ocs_ci.ocs.resources.deployment import (
@@ -28,6 +29,7 @@ logger = logging.getLogger(__name__)
 @magenta_squad
 @tier2
 @skipif_external_mode
+@skipif_s390x
 @skipif_ocs_version("<4.12")
 class TestMaintenancePod(E2ETest):
     def test_maintenance_pod_for_osd(self, ceph_objectstore_factory):

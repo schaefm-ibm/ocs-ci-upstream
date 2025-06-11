@@ -10,6 +10,7 @@ from ocs_ci.framework.testlib import (
     runs_on_provider,
     skipif_ocs_version,
     skipif_vsphere_ipi,
+    skipif_s390x_zvm,
     tier4b,
 )
 from ocs_ci.helpers.sanity_helpers import Sanity, SanityExternalCluster
@@ -36,6 +37,7 @@ log = logging.getLogger(__name__)
 @runs_on_provider
 @ignore_leftovers
 @skipif_vsphere_ipi
+@skipif_s390x_zvm
 @skipif_ocs_version("<4.9")
 class TestNoobaaSTSHostNodeFailure(ManageTest):
     """

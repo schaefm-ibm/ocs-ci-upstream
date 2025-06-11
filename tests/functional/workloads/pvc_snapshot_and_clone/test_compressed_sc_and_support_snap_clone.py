@@ -11,6 +11,7 @@ from ocs_ci.framework.testlib import (
     skipif_hci_provider_and_client,
     skipif_disconnected_cluster,
     skipif_proxy_cluster,
+    skipif_no_kms,
 )
 from ocs_ci.ocs.benchmark_operator import BMO_NAME
 from ocs_ci.ocs.constants import (
@@ -170,6 +171,7 @@ class TestCompressedSCAndSupportSnapClone(E2ETest):
     @skipif_external_mode
     @skipif_ocs_version("<4.9")
     @skipif_ocp_version("<4.9")
+    @skipif_no_kms
     @pytest.mark.parametrize(
         argnames=["kv_version", "replica", "compression"],
         argvalues=[

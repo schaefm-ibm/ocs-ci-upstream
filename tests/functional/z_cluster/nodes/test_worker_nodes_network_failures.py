@@ -7,6 +7,7 @@ from ocs_ci.framework.pytest_customization.marks import (
     skipif_aws_i3,
     skipif_vsphere_ipi,
     skipif_ibm_power,
+    skipif_s390x_zvm,
     skipif_managed_service,
     skipif_hci_provider_and_client,
     skipif_gcp_platform,
@@ -31,6 +32,7 @@ logger = logging.getLogger(__name__)
 @skipif_managed_service
 @skipif_hci_provider_and_client
 @ignore_leftovers
+@skipif_s390x_zvm
 class TestWorkerNodesFailure(ManageTest):
     """
     Test all worker nodes simultaneous abrupt network failure for ~300 seconds

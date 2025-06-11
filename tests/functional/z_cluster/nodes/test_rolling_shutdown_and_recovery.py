@@ -10,6 +10,7 @@ from ocs_ci.framework.testlib import (
     ManageTest,
     skipif_external_mode,
     skipif_ibm_cloud,
+    skipif_s390x_zvm,
     skipif_managed_service,
 )
 from ocs_ci.ocs.node import get_ocs_nodes
@@ -27,6 +28,7 @@ log = logging.getLogger(__name__)
 @skipif_external_mode
 @skipif_managed_service
 @ignore_leftovers
+@skipif_s390x_zvm
 class TestRollingWorkerNodeShutdownAndRecovery(ManageTest):
     """
     Test rolling shutdown and recovery of OCS pods running worker nodes

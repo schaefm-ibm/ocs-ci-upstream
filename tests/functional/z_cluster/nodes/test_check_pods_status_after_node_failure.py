@@ -10,6 +10,8 @@ from ocs_ci.framework.testlib import (
     skipif_managed_service,
     skipif_hci_provider_and_client,
     skipif_external_mode,
+    skipif_s390x_zvm,
+    skipif_ibm_cloud,
 )
 from ocs_ci.helpers.sanity_helpers import Sanity
 from ocs_ci.ocs.node import (
@@ -140,6 +142,8 @@ class TestCheckPodsAfterNodeFailure(ManageTest):
 
         request.addfinalizer(finalizer)
 
+    @skipif_ibm_cloud
+    @skipif_s390x_zvm
     def test_check_pods_status_after_node_failure(self, nodes, node_restart_teardown):
         """
         Test check pods status after a node failure event.

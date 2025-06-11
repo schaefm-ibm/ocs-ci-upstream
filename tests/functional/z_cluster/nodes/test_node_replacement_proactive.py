@@ -17,6 +17,7 @@ from ocs_ci.ocs.resources.storage_cluster import osd_encryption_verification
 from ocs_ci.framework.pytest_customization.marks import (
     skipif_managed_service,
     skipif_hci_provider_and_client,
+    skipif_s390x_zvm,
     skipif_bmpsi,
     skipif_external_mode,
     skipif_ms_consumer,
@@ -194,6 +195,7 @@ def delete_and_create_osd_node(osd_node_name):
 @ipi_deployment_required
 @skipif_managed_service
 @skipif_hci_provider_and_client
+@skipif_s390x_zvm
 @skipif_bmpsi
 @skipif_external_mode
 class TestNodeReplacementWithIO(ManageTest):
@@ -276,6 +278,7 @@ class TestNodeReplacementWithIO(ManageTest):
 @brown_squad
 @tier4a
 @ignore_leftovers
+@skipif_s390x_zvm
 @skipif_bmpsi
 @skipif_external_mode
 @skipif_ms_consumer
@@ -333,6 +336,7 @@ class TestNodeReplacement(ManageTest):
 @brown_squad
 @ignore_leftovers
 @pytest.mark.polarion_id("OCS-2535")
+@skipif_s390x_zvm
 @skipif_external_mode
 @skipif_managed_service
 @skipif_hci_provider_and_client

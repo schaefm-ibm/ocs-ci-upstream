@@ -27,6 +27,9 @@ from ocs_ci.ocs.constants import (
     IBM_POWER_PLATFORM,
     IBMCLOUD_PLATFORM,
     ROSA_PLATFORM,
+    IBM_S390X_ARCH,
+    IBM_KVM_HYPERVISOR,
+    IBM_ZVM_HYPERVISOR,
     OPENSHIFT_DEDICATED_PLATFORM,
     MANAGED_SERVICE_PLATFORMS,
     HPCS_KMS_PROVIDER,
@@ -72,6 +75,7 @@ team_marks = [manage, ecosystem, e2e]
 # components  and other markers
 ocp = pytest.mark.ocp
 rook = pytest.mark.rook
+ui = pytest.mark.ui
 mcg = pytest.mark.mcg
 rgw = pytest.mark.rgw
 csi = pytest.mark.csi
@@ -89,6 +93,7 @@ scale_long_run = pytest.mark.scale_long_run
 scale_changed_layout = pytest.mark.scale_changed_layout
 deployment = pytest.mark.deployment
 polarion_id = pytest.mark.polarion_id
+bugzilla = pytest.mark.bugzilla
 jira = pytest.mark.jira
 acm_import = pytest.mark.acm_import
 rdr = pytest.mark.rdr
@@ -765,3 +770,40 @@ vault_kms_deployment_required = pytest.mark.skipif(
 )
 
 ui = compose(skipif_ibm_cloud_managed, pytest.mark.ui)
+
+# s390x
+# marker for skipping tests that do not apply to the s390x platform
+skipif_s390x = pytest.mark.skipif(
+  config.ENV_DATA["architecture"].lower() == IBM_S390X_ARCH,
+  reason="Test does not apply to s390x platform",
+)
+
+# marker for skipping tests that do not apply to the s390x platform
+# utilizing z/VM as node hypervisor
+skipif_s390x_zvm = pytest.mark.skipif(
+  config.ENV_DATA["architecture"].lower() == IBM_S390X_ARCH
+  and config.ENV_DATA["hypervisor"].lower() == IBM_ZVM_HYPERVISOR,
+  reason="Test does not apply to s390x on z/VM platform",
+)
+
+# marker for skipping tests that do not apply to the s390x platform
+# utilizing KVM as node hypervisor
+skipif_s390x_kvm = pytest.mark.skipif(
+  config.ENV_DATA["architecture"].lower() == IBM_S390X_ARCH
+  and config.ENV_DATA["hypervisor"].lower() == IBM_KVM_HYPERVISOR,
+  reason="Test does not apply to s390x on KVM platform",
+)
+
+# marker for ocs-ci issues documented in GitHub
+skipif_ocsci_issue = pytest.mark.skipif_ocsci_issue
+
+skipif_azure_creds_are_missing = pytest.mark.skipif(
+    (
+        load_auth_config().get("AUTH", {}).get("AZURE", {}).get("STORAGE_ACCOUNT_NAME")
+        is None
+        and "STORAGE_ACCOUNT_KEY" not in os.environ
+    ),
+    reason=(
+        "Azure credentials weren't found in the local auth.yaml"
+    ),
+)

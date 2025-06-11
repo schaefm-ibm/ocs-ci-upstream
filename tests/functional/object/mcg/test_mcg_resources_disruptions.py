@@ -3,6 +3,7 @@ from ocs_ci.framework import config
 
 import pytest
 
+from ocs_ci.framework.pytest_customization import marks
 from ocs_ci.framework.testlib import (
     MCGTest,
     ignore_leftovers,
@@ -16,6 +17,7 @@ from ocs_ci.framework.testlib import (
     red_squad,
     runs_on_provider,
     mcg,
+    skipif_s390x_zvm
 )
 from ocs_ci.helpers import helpers
 from ocs_ci.helpers.helpers import wait_for_resource_state
@@ -37,6 +39,7 @@ def setup(request):
 @red_squad
 @runs_on_provider
 @ignore_leftovers()
+@skipif_s390x_zvm
 @skipif_mcg_only
 @pytest.mark.usefixtures(setup.__name__)
 class TestMCGResourcesDisruptions(MCGTest):
@@ -58,6 +61,7 @@ class TestMCGResourcesDisruptions(MCGTest):
     }
 
     @tier4c
+    @skipif_s390x_zvm
     @pytest.mark.parametrize(
         argnames=["resource_to_delete"],
         argvalues=[
@@ -125,6 +129,7 @@ class TestMCGResourcesDisruptions(MCGTest):
         self.cl_obj.wait_for_noobaa_health_ok()
 
     @tier3
+    @skipif_s390x_zvm
     @pytest.mark.parametrize(
         argnames=["pod_to_drain"],
         argvalues=[

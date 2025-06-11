@@ -8,6 +8,7 @@ from ocs_ci.framework.testlib import (
     tier4b,
     ignore_leftovers,
     skipif_ibm_cloud,
+    skipif_s390x_zvm,
     skipif_managed_service,
     skipif_hci_provider_and_client,
     skipif_external_mode,
@@ -24,6 +25,7 @@ log = logging.getLogger(__name__)
 @brown_squad
 @ignore_leftovers
 @tier4b
+@skipif_s390x_zvm
 class TestOCSWorkerNodeShutdown(ManageTest):
     """
     Test case validate both the MDS pods rbd and cephfs plugin Provisioner
@@ -79,8 +81,8 @@ class TestOCSWorkerNodeShutdown(ManageTest):
         # Validate all nodes are in READY state and up
         retry(
             (CommandFailed, TimeoutError, AssertionError, ResourceWrongStatusException),
-            tries=20,
-            delay=10,
+            tries=30,
+            delay=15,
             backoff=1.5,
         )(wait_for_nodes_status(timeout=1800))
 

@@ -10,6 +10,8 @@ from ocs_ci.framework.testlib import (
     skipif_hci_provider_and_client,
     skipif_disconnected_cluster,
     skipif_proxy_cluster,
+    skipif_no_kms,
+    skipif_s390x,
 )
 from ocs_ci.ocs.benchmark_operator import BMO_NAME
 from ocs_ci.ocs.constants import CEPHBLOCKPOOL
@@ -129,6 +131,7 @@ class TestPvcSnapshotOfWorkloads(E2ETest):
     @skipif_ocs_version("<4.8")
     @skipif_ocp_version("<4.8")
     @skipif_hci_provider_and_client
+    @skipif_no_kms
     def test_encrypted_pvc_snapshot(
         self,
         kv_version,

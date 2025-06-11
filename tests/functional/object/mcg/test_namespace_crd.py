@@ -14,6 +14,7 @@ from botocore import UNSIGNED
 from botocore.config import Config
 import botocore.exceptions as boto3exception
 
+from ocs_ci.framework.pytest_customization import marks
 from ocs_ci.framework.testlib import (
     MCGTest,
     on_prem_platform_required,
@@ -23,6 +24,7 @@ from ocs_ci.framework.testlib import (
     tier1,
     tier2,
     tier4c,
+    skipif_s390x_zvm,
 )
 from ocs_ci.ocs.bucket_utils import (
     sync_object_directory,
@@ -321,7 +323,7 @@ class TestNamespace(MCGTest):
         Test namespace bucket creation using the MCG CRDs.
         """
 
-        # Create the namespace bucket on top of the namespace resource.
+        # Create the namespace bucket on top of the namespace resource
         bucket_factory(
             amount=1,
             interface=bucketclass_dict["interface"],

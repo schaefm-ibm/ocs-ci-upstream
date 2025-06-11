@@ -5,6 +5,7 @@ from ocs_ci.framework import config
 from ocs_ci.framework.pytest_customization.marks import (
     tier1,
     skipif_ui_not_support,
+    skipif_s390x,
     skipif_hci_provider_or_client,
     skipif_external_mode,
     green_squad,
@@ -88,6 +89,7 @@ class TestPoolUserInterface(ManageTest):
     @ui
     @tier1
     @skipif_ocs_version("<4.16")
+    @skipif_s390x
     @green_squad
     def test_create_delete_pool(
         self,
